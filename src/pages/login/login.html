@@ -1,0 +1,21 @@
+<ion-content padding id="page2" style="background-color:#4274B4;">
+  <div class="spacer" style="width:300px;height:160px;" id="login-spacer5"></div>
+  <form id="login-form2">
+    <ion-list id="login-list1">
+      <ion-item id="login-input3">
+        <ion-label></ion-label>
+        <ion-input type="email" placeholder="Email"></ion-input>
+      </ion-item>
+      <ion-item id="login-input4">
+        <ion-label></ion-label>
+        <ion-input type="password" placeholder="Password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button id="login-button4" ion-button color="balanced" (click)="goToCalendarPage()" block style="color:#FAFAF5;">
+      Log in
+    </button>
+    <button id="login-button5" ion-button clear color="light" (click)="goToSignupPage()"  block href-inappbrowser="/signup">
+      Or create an account
+    </button>
+  </form>
+</ion-content>
