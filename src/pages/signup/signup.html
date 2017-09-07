@@ -12,17 +12,17 @@
         <ion-label>
           Email
         </ion-label>
-        <ion-input type="email" placeholder=""></ion-input>
+        <ion-input [(ngModel)]="name1" [ngModelOptions]="{standalone: true}" type="email" placeholder=""></ion-input>
       </ion-item>
       <ion-item id="signup-input7">
         <ion-label>
           Password
         </ion-label>
-        <ion-input type="text" placeholder=""></ion-input>
+        <ion-input [(ngModel)]="password1" [ngModelOptions]="{standalone: true}" type="password" placeholder=""></ion-input>
       </ion-item>
     </ion-list>
     <div class="spacer" style="width:300px;height:26px;" id="signup-spacer6"></div>
-    <button id="signup-button6" ion-button color="balanced" (click)="goToLoginPage()" block>
+    <button id="signup-button6" ion-button color="balanced" (click)="signup(name1, password1)" block>
       Sign up
     </button>
   </form>

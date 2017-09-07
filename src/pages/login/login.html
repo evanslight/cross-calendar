@@ -4,11 +4,12 @@
     <ion-list id="login-list1">
       <ion-item id="login-input3">
         <ion-label></ion-label>
-        <ion-input type="email" placeholder="Email"></ion-input>
+        <ion-input [(ngModel)]="name1" [ngModelOptions]="{standalone: true}" type="email" placeholder="Email"></ion-input>
+        <h2>{{name1}}</h2>
       </ion-item>
       <ion-item id="login-input4">
         <ion-label></ion-label>
-        <ion-input type="password" placeholder="Password"></ion-input>
+        <ion-input [(ngModel)]="password1" [ngModelOptions]="{standalone: true}" type="password" placeholder="Password"></ion-input>
       </ion-item>
     </ion-list>
     <button id="login-button4" ion-button color="balanced" (click)="goToCalendarPage()" block style="color:#FAFAF5;">
@@ -17,5 +18,26 @@
     <button id="login-button5" ion-button clear color="light" (click)="goToSignupPage()"  block href-inappbrowser="/signup">
       Or create an account
     </button>
+    <button id="login-button6" ion-button color="balanced"  style="color:#FAFAF5;" (click)="login(name1, password1)" *ngIf="!(user | async)?.uid" block>
+      Anonymous Login
+    </button>
+    <button id="login-button7" ion-button color="balanced" style="color:#FAFAF5;" (click)="logout()" *ngIf="(user | async)?.uid" block>
+      Logout
+    </button>
+<div>
+  <ul>
+    <li *ngFor="let booklist of booklists | async">
+ 
+       {{ booklist.$key }} : {{ booklist.$value }}
+ 
+    </li>
+  </ul>
+</div>
+
+  <input type="text" id="message" *ngIf="(user | async)?.uid" placeholder="What is it that you do?" (keyup.enter)="Send($event.target.value)" [(ngModel)]="msgVal" name="some txt" />
+
   </form>
 </ion-content>
+<ion-footer no-shadow>
+
+</ion-footer>

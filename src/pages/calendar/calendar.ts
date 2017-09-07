@@ -23,8 +23,8 @@ yyyy = this.today.getFullYear();
 
   public event = {
     month: '2017-09-06',
-    timeStarts: '08:00',
     timeEnds: '2017-09-06',
+    timeStarts: '08:00',
     timeEnd: '08:00',
   }
 
