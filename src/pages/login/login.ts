@@ -49,7 +49,7 @@ export class LoginPage {
   login(username, password) {
     this.sp.emailLogin(username, password)
     .then(aaa => {this.sp.authenticated; 
-    console.log(this.sp.authenticated);
+    console.log("???"+this.sp.authenticated);
     if ( this.sp.authenticated == true ) {
       this.goToCalendarPage();
     }

@@ -96,13 +96,14 @@ export class StaffProvider {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user
-        this.updateUserData()
+        this.displayName=this.afAuth.auth.currentUser.email
+        // this.updateUserData()
         // this.adaRef = this.adaRef.push();
         // this.adaRef.set({
         //   'name': 'ada'
         // });
 
-        // console.log("->"+this.authState['displayName'])
+        console.log("->"+this.displayName)
       })
       .catch(error => console.log(error));
   }
