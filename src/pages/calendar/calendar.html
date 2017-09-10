@@ -5,6 +5,7 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
+
 <ion-content padding id="page3">
   <div id="calendar-container2"></div>
   <form id="calendar-form6">
@@ -21,9 +22,7 @@
       <ion-select name=""></ion-select>
     </ion-item>
   </form>
-  <button id="calendar-button7" ion-button color="positive" block>
-    Confirm
-  </button>
+
 
   <ion-list>
     <ion-item>
@@ -41,12 +40,14 @@
     <ion-item>
       <ion-label>Start Date</ion-label>
 
-      <ion-datetime displayFormat="MMM DD YYYY" min="2010" max="2050-10-31" [(ngModel)]="event.month"></ion-datetime>
+      <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="DD MMM YYYY" min="2010" max="2050-10-31" [(ngModel)]="startday"></ion-datetime>
     </ion-item>
-
+  <button id="calendar-button7" ion-button color="positive" (click)="submitdata(startday, endday)" block>
+    Confirm
+  </button>
     <ion-item>
       <ion-label>End Date</ion-label>
-      <ion-datetime displayFormat="MMM DD YYYY" min="2010" max="2050-10-31" [(ngModel)]="event.timeEnds"></ion-datetime>
+      <ion-datetime displayFormat="MMM DD YYYY" min="2010" max="2050-10-31" [(ngModel)]="endday"></ion-datetime>
     </ion-item>
 
     <ion-item>

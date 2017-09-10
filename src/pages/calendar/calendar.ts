@@ -13,24 +13,50 @@ today = new Date();
 dd = this.today.getDate();
 mm = this.today.getMonth()+1; //January is 0!
 yyyy = this.today.getFullYear();
+newmm = "";
+thisday = "";
+newdd = "";
+startday = "";
+endday = "";
+
+
 
   constructor(public navCtrl: NavController, private calendar: Calendar) {
   	  this.calendar.createCalendar('MyCalendar').then(
   	(msg) => { console.log(msg); },
   	(err) => { console.log(err); }
 	);
+      if ( this.mm < 10) {
+        this.newmm = ('0'+this.mm).toString();
+      } else {
+        this.newmm = this.mm.toString();
+      }
+
+      if ( this.dd < 10) {
+        this.newdd = ('0'+this.dd).toString();
+      } else {
+        this.newdd = this.dd.toString();
+      }
+      this.thisday = (this.yyyy+'-'+this.newmm+'-'+this.newdd).toString();
+      this.startday = this.thisday;
+      this.endday = this.thisday;
   }
 
   public event = {
-    month: '2017-09-06',
+    month: this.thisday,
     timeEnds: '2017-09-06',
-    timeStarts: '08:00',
-    timeEnd: '08:00',
+    timeStarts: '09:00',
+    timeEnd: '17:00',
+  }
+  submitdata(start, end, timebegin, timeend){
+    timebegin=this.event.timeStarts;
+    timeend=this.event.timeEnd;
+    console.log(start +" "+ end +" "+timebegin + " "+timeend);
   }
 
-  ionViewDidLoad(today) {
-  	today=this.today
-	console.log(today);
+  ionViewDidLoad(thisday) {
+    thisday=this.startday;
+	console.log(thisday);
 
   }
 
