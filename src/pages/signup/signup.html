@@ -6,7 +6,7 @@
         <ion-label>
           Name
         </ion-label>
-        <ion-input type="text" placeholder=""></ion-input>
+        <ion-input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" type="text" placeholder=""></ion-input>
       </ion-item>
       <ion-item id="signup-input6">
         <ion-label>
@@ -22,7 +22,7 @@
       </ion-item>
     </ion-list>
     <div class="spacer" style="width:300px;height:26px;" id="signup-spacer6"></div>
-    <button id="signup-button6" ion-button color="balanced" (click)="signup(name1, password1)" block>
+    <button id="signup-button6" ion-button color="balanced" (click)="signup(name1, password1, name)" block>
       Sign up
     </button>
   </form>

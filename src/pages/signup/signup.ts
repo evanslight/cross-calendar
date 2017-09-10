@@ -20,8 +20,8 @@ export class SignupPage {
     this.navCtrl.push(LoginPage);
   }  
 
-  signup(username, password) {
-    this.sp.emailSignUp(username, password)
+  signup(username, password, name) {
+    this.sp.emailSignUp(username, password,name)
     .then(aaa => {this.sp.authenticated; 
     console.log(this.sp.authenticated);
     if ( this.sp.authenticated == true ) {

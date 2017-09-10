@@ -26,6 +26,8 @@ export class StaffProvider {
   items: FirebaseListObservable<any[]>;
   booklists: FirebaseListObservable<any[]>;
   msgVal: string = '';
+  adaRef: any;
+  displayName: string = '';
 
   authState: any = null;
 
@@ -35,6 +37,7 @@ export class StaffProvider {
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth
     });
+    this.adaRef = firebase.database().ref("users/email");
   }
 
   // goToCalendarPage() {
@@ -78,11 +81,13 @@ export class StaffProvider {
 
   //// Email/Password Auth ////
 
-  emailSignUp(email: string, password: string) {
+  emailSignUp(email: string, password: string, name: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user
+        this.displayName = name
         this.updateUserData()
+        console.log("->"+this.displayName)
       })
       .catch(error => console.log(error));
   }
@@ -92,6 +97,12 @@ export class StaffProvider {
       .then((user) => {
         this.authState = user
         this.updateUserData()
+        // this.adaRef = this.adaRef.push();
+        // this.adaRef.set({
+        //   'name': 'ada'
+        // });
+
+        // console.log("->"+this.authState['displayName'])
       })
       .catch(error => console.log(error));
   }
@@ -123,7 +134,7 @@ export class StaffProvider {
     const path = `users/${this.currentUserId}`; // Endpoint on firebase
     const data = {
       email: this.authState.email,
-      name: this.authState.displayName
+      name: this.displayName
     }
 
     this.db.object(path).update(data)
