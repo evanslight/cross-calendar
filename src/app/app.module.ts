@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler, DeepLinkConfig } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, DeepLinkConfig,LoadingController, ModalController  } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -11,6 +11,7 @@ import { DetailPage } from '../pages/detail/detail';
 import { SignupPage } from '../pages/signup/signup';
 import { Calendar } from '@ionic-native/calendar';
 import { StaffProvider } from '../providers/staff/staff';
+import { PopPage } from '../pages/pop/pop';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -38,7 +39,8 @@ export const deepLinkConfig: DeepLinkConfig = {
     LoginPage,
     CalendarPage,
     DetailPage,
-    SignupPage
+    SignupPage,
+    PopPage
   ],
   imports: [
     BrowserModule,
@@ -53,13 +55,15 @@ export const deepLinkConfig: DeepLinkConfig = {
     LoginPage,
     CalendarPage,
     DetailPage,
-    SignupPage
+    SignupPage,
+    PopPage
   ],
   providers: [
     StatusBar,
     Calendar,
     SplashScreen,
     AngularFireModule,
+    ModalController,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     StaffProvider
   ]

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Calendar } from '@ionic-native/calendar';
+import { StaffProvider } from '../../providers/staff/staff';
+import { DetailPage } from '../detail/detail';
 
 
 @Component({
@@ -21,7 +23,7 @@ endday = "";
 
 
 
-  constructor(public navCtrl: NavController, private calendar: Calendar) {
+  constructor(public navCtrl: NavController, private calendar: Calendar, private sp: StaffProvider) {
   	  this.calendar.createCalendar('MyCalendar').then(
   	(msg) => { console.log(msg); },
   	(err) => { console.log(err); }
@@ -48,10 +50,11 @@ endday = "";
     timeStarts: '09:00',
     timeEnd: '17:00',
   }
-  submitdata(start, end, timebegin, timeend){
+  submitdata(start, end, timebegin, timeend, taskName, location){
     timebegin=this.event.timeStarts;
     timeend=this.event.timeEnd;
     console.log(start +" "+ end +" "+timebegin + " "+timeend);
+    this.sp.updateUserTask(start, end, timebegin, timeend, taskName, location);
   }
 
   ionViewDidLoad(thisday) {
@@ -60,4 +63,7 @@ endday = "";
 
   }
 
+  goToDetailPage() {
+    this.navCtrl.push(DetailPage);
+  }
 }

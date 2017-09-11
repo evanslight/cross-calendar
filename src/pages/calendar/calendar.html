@@ -9,7 +9,7 @@
 <ion-content padding id="page3">
   <div id="calendar-container2"></div>
   <form id="calendar-form6">
-    <ion-item id="calendar-select2">
+<!--     <ion-item id="calendar-select2">
       <ion-label>
         Select
       </ion-label>
@@ -20,31 +20,26 @@
         Select
       </ion-label>
       <ion-select name=""></ion-select>
-    </ion-item>
+    </ion-item> -->
   </form>
 
 
   <ion-list>
     <ion-item>
-      <ion-input placeholder="Title"></ion-input>
+      <ion-input placeholder="Task Name" [(ngModel)]="taskName"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input placeholder="Location"></ion-input>
+      <ion-input placeholder="Location" [(ngModel)]="location"></ion-input>
     </ion-item>
   </ion-list>
 
-      <ion-item>
-  <h2>{{ today }} </h2>
-      </ion-item>
   <ion-list>
     <ion-item>
       <ion-label>Start Date</ion-label>
 
       <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="DD MMM YYYY" min="2010" max="2050-10-31" [(ngModel)]="startday"></ion-datetime>
     </ion-item>
-  <button id="calendar-button7" ion-button color="positive" (click)="submitdata(startday, endday)" block>
-    Confirm
-  </button>
+
     <ion-item>
       <ion-label>End Date</ion-label>
       <ion-datetime displayFormat="MMM DD YYYY" min="2010" max="2050-10-31" [(ngModel)]="endday"></ion-datetime>
@@ -61,7 +56,7 @@
     </ion-item>
 
 
-    <button ion-item>
+<!--     <button ion-item>
       <ion-label>Repeat</ion-label>
       <ion-note item-end>Never</ion-note>
     </button>
@@ -69,15 +64,23 @@
     <button ion-item>
       <ion-label>Travel Time</ion-label>
       <ion-note item-end>None</ion-note>
-    </button>
+    </button> -->
   </ion-list>
 
   <ion-list>
+    <button id="calendar-button7" ion-button color="positive" (click)="submitdata(startday, endday, event.timeStarts, event.timeEnd, taskName, location)" block>
+      Confirm
+    </button>
+    <button id="calendar-button8" ion-button color="positive" (click)="goToDetailPage()" block>
+      Check
+    </button>
+  </ion-list>
+<!--   <ion-list>
     <button ion-item>
       <ion-label>Alert</ion-label>
       <ion-note item-end>None</ion-note>
     </button>
-  </ion-list>
+  </ion-list> -->
 </ion-content>
 
 <style>

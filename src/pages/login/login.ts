@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { CalendarPage } from '../calendar/calendar';
 
@@ -23,7 +23,7 @@ export class LoginPage {
   name1: any;
   password1: any;
 
-  constructor(public navCtrl: NavController, public afAuth: AngularFireAuth, public af: AngularFireDatabase, private sp: StaffProvider) {
+  constructor(public navCtrl: NavController, public afAuth: AngularFireAuth, public af: AngularFireDatabase, private sp: StaffProvider, public loadingCtrl: LoadingController) {
     this.booklists = af.list('/Books', {
       query: {
         limitToLast: 50
@@ -36,6 +36,8 @@ export class LoginPage {
     });
 
     this.user = this.afAuth.authState;
+      this.name1="as@sina.com";
+      this.password1="123456";
   }
 
   goToSignupPage() {
@@ -47,10 +49,16 @@ export class LoginPage {
   }
 
   login(username, password) {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+
     this.sp.emailLogin(username, password)
     .then(aaa => {this.sp.authenticated; 
     console.log("???"+this.sp.authenticated);
     if ( this.sp.authenticated == true ) {
+      loading.dismiss();
       this.goToCalendarPage();
     }
     });
@@ -65,5 +73,18 @@ export class LoginPage {
       this.items.push({ message: desc});
       this.msgVal = '';
   }  
+
+  // presentLoadingDefault() {
+  //   let loading = this.loadingCtrl.create({
+  //     content: 'Please wait...'
+  //   });
+  
+  //   loading.present();
+  
+  //   setTimeout(() => {
+  //     loading.dismiss();
+  //   }, 1000);
+  // }
+
 }
 

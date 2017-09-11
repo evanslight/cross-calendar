@@ -37,7 +37,7 @@ export class StaffProvider {
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth
     });
-    this.adaRef = firebase.database().ref("users/email");
+   
   }
 
   // goToCalendarPage() {
@@ -96,14 +96,20 @@ export class StaffProvider {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user
-        this.displayName=this.afAuth.auth.currentUser.email
+          const path = `users/${this.currentUserId}`;
+          this.adaRef = firebase.database().ref(path);
+          this.adaRef.once('value').then((snapshot)=> {
+            this.displayName=snapshot.val().name
+            console.log(",", snapshot.val())
+            console.log("->>>"+this.displayName)
+        }) ;
         // this.updateUserData()
         // this.adaRef = this.adaRef.push();
         // this.adaRef.set({
         //   'name': 'ada'
         // });
 
-        console.log("->"+this.displayName)
+        // console.log("->"+this.displayName)
       })
       .catch(error => console.log(error));
   }
@@ -135,11 +141,49 @@ export class StaffProvider {
     const path = `users/${this.currentUserId}`; // Endpoint on firebase
     const data = {
       email: this.authState.email,
-      name: this.displayName
+      name: this.displayName,
+      tasks: []
     }
 
     this.db.object(path).update(data)
       .catch(error => console.log(error));
+
+  }
+
+  public updateUserTask(fromDate: string, toDate: string, startTime: string, endTime: string, taskTitle: string, location: string): void {
+    // Writes user name and email to realtime db
+    // useful if your app displays information about users or for admin features
+
+    // const path = `users/${this.currentUserId}`; // Endpoint on firebase
+    // const data = {
+    //   email: this.authState.email,
+    //   name: this.displayName,
+    //   tasks: [{
+    //     "title": taskTitle,
+    //     "fromDate": fromDate,
+    //     "toDate": toDate,
+    //     "startTime": startTime,
+    //     "endTime": endTime
+    //   }]
+
+    // }
+
+    const path = `users/${this.currentUserId}/tasks`; // Endpoint on firebase
+    this.adaRef = firebase.database().ref(path);
+
+    const data = {
+        "title": taskTitle,
+        "location": location,
+        "fromDate": fromDate,
+        "toDate": toDate,
+        "startTime": startTime,
+        "endTime": endTime
+    }
+
+    this.adaRef.push(data)
+
+    // this.db.object(path).update(data)
+    //   .catch(error => console.log(error));
 
   }
 

@@ -12,18 +12,20 @@
         <ion-input [(ngModel)]="password1" [ngModelOptions]="{standalone: true}" type="password" placeholder="Password"></ion-input>
       </ion-item>
     </ion-list>
-    <button id="login-button4" ion-button color="balanced" (click)="goToCalendarPage()" block style="color:#FAFAF5;">
+<!--     <button id="login-button4" ion-button color="balanced" (click)="goToCalendarPage()" block style="color:#FAFAF5;">
       Log in
-    </button>
-    <button id="login-button5" ion-button clear color="light" (click)="goToSignupPage()"  block href-inappbrowser="/signup">
-      Or create an account
-    </button>
+    </button> -->
+
     <button id="login-button6" ion-button color="balanced"  style="color:#FAFAF5;" (click)="login(name1, password1)" *ngIf="!(user | async)?.uid" block>
-      Anonymous Login
+      Login
     </button>
     <button id="login-button7" ion-button color="danger" style="color:#FAFAF5;" (click)="logout()" *ngIf="(user | async)?.uid" block>
       Logout
     </button>
+    <button id="login-button5" ion-button clear color="light" (click)="goToSignupPage()"  block href-inappbrowser="/signup">
+      Or create an account
+    </button>
+
 <!-- <div>
   <ul>
     <li *ngFor="let booklist of booklists | async">
@@ -34,7 +36,7 @@
   </ul>
 </div> -->
 
-  <input type="text" id="message" *ngIf="(user | async)?.uid" placeholder="What is it that you do?" (keyup.enter)="Send($event.target.value)" [(ngModel)]="msgVal" name="some txt" />
+<!--   <input type="text" id="message" *ngIf="(user | async)?.uid" placeholder="What is it that you do?" (keyup.enter)="Send($event.target.value)" [(ngModel)]="msgVal" name="some txt" /> -->
 
   </form>
 </ion-content>
