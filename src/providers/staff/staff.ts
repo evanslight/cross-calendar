@@ -23,11 +23,12 @@ import { NavController } from 'ionic-angular';
 export class StaffProvider {
 
   user: Observable<firebase.User>;
-  items: FirebaseListObservable<any[]>;
+  // items: FirebaseListObservable<any[]>;
   booklists: FirebaseListObservable<any[]>;
   msgVal: string = '';
   adaRef: any;
   displayName: string = '';
+  items: any[];
 
   authState: any = null;
 
@@ -187,5 +188,38 @@ export class StaffProvider {
 
   }
 
+getAllUser(): any {
+  const path=`users`;
+  this.db.database.ref(path).once("value")
+  .then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      // key will be "ada" the first time and "alan" the second time
+      var key = childSnapshot.key;
+      // childData will be the actual contents of the child
+      var childData = childSnapshot.val();
+      this.items.push(childSnapshot.val())
+  }
+
+  );
+  return this.items
+ })
+  .catch((error) => console.log(error))
+
+}
+
+// getAllUser():Observable<any> {
+//       return new Observable(observer => {
+//            firebase.database().ref('users')
+//            .limitToLast(10)
+//            .once('value',
+//                 (snapshot) => {
+//                      observer.next(snapshot.val().name);
+//                 },
+//                 (err) => {
+//                      console.log(err);
+//                 }
+//            );
+//       });
+//  }
 
 }

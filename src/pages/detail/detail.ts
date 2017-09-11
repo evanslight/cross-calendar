@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { PopPage } from '../pop/pop';
 import { ModalController } from 'ionic-angular';
-
+import { StaffProvider } from '../../providers/staff/staff';
 
 @Component({
   selector: 'page-detail',
@@ -14,7 +14,7 @@ export class DetailPage {
 	searchQuery: string = '';
   items: string[];
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController,  private sp: StaffProvider) {
   	 this.initializeItems();
   }
 
@@ -40,6 +40,8 @@ export class DetailPage {
   }
 
   initializeItems() {
+  	this.sp.getAllUser();
+  	console.log(this.sp.getAllUser());
     this.items = [
       'Amsterdam',
       'Bogota',
