@@ -21,14 +21,15 @@
 
       >     
     </ion-searchbar>
-    <ion-list>
+    <ion-list >
 <!--       <ion-item *ngFor="let item of items"> -->
-      <ion-item-sliding *ngFor="let item of items">
+      <ion-item-sliding *ngFor="let item of items ">
         <ion-item >
 <!--           <ion-label stacked>as</ion-label>
           <ion-label stacked>City</ion-label> -->
 <!--           <button ion-button (click)="presentModal()">{{ item }}</button> -->
-          <ion-label stacked (click)="presentModal()"> {{ item }}</ion-label>
+          <ion-label stacked (click)="presentModal()" float-start> {{ item.name }}</ion-label>
+<!--           <ion-label stacked (click)="presentModal()" float-end > {{ item.email }}</ion-label> -->
            
         </ion-item>
         <ion-item-options side="left">
@@ -56,23 +57,7 @@
   </ion-list>
 
 
-<ion-list>
-  <ion-item-sliding #item>
-    <ion-item>
-      Item
-    </ion-item>
-    <ion-item-options side="left">
-      <button ion-button (click)="favorite(item)">Favorite</button>
-      <button ion-button color="danger" (click)="share(item)">Share</button>
-    </ion-item-options>
-
-    <ion-item-options side="right">
-      <button ion-button (click)="unread(item)">Unread</button>
-    </ion-item-options>
-  </ion-item-sliding>
-</ion-list>
-
-
+          <button ion-button color="danger" (click)="onLoad()">test observable</button>
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>

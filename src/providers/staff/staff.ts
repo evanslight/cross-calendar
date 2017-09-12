@@ -23,17 +23,26 @@ import { NavController } from 'ionic-angular';
 export class StaffProvider {
 
   user: Observable<firebase.User>;
-  // items: FirebaseListObservable<any[]>;
+  items: FirebaseListObservable<any[]>;
   booklists: FirebaseListObservable<any[]>;
   msgVal: string = '';
   adaRef: any;
   displayName: string = '';
-  items: any[];
+  // items: any[];
+  namelist: any[];
+  loadedDetail=false;
 
   authState: any = null;
 
   constructor( private afAuth: AngularFireAuth,
     private db: AngularFireDatabase) {
+
+    this.items = db.list('/users', {
+      query: {
+        limitToLast: 50
+      },
+      preserveSnapshot: true
+    });
 
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth
@@ -80,6 +89,54 @@ export class StaffProvider {
     }
   }
 
+  // Returns all user name
+  get getAllUser():  any {
+    const path=`users`;
+    var arrayNames = [];
+    console.log("->>>getAllUser "+this.loadedDetail);
+    this.db.database.ref(path).once("value")
+    .then((snapshot) => {
+      
+      snapshot.forEach(function(childSnapshot) {
+        // key will be "ada" the first time and "alan" the second time
+        var key = childSnapshot.key;
+        // childData will be the actual contents of the child
+        // var childData = childSnapshot.val();
+        // this.items.push(childSnapshot.val())
+        arrayNames.push(childSnapshot.val().name);
+  
+        // console.log("->>>"+arrayNames);
+    })
+      this.loadedDetail=true;
+      console.log("->>>getAllUser "+this.loadedDetail);
+      // console.log("->>>"+this.loadedDetail);
+      this.namelist=arrayNames
+      return arrayNames
+   })
+    return ""
+  }
+
+  Send() {
+    // this.items.subscribe( 
+    // //   snapshots => {
+    // //     snapshots.forEach(snapshot => {
+    // //       console.log("check items "+snapshot.key);
+    // //     });
+    // // }
+    // lalalas => {
+    //     console.log("lalala");
+    //     console.log(lalalas);
+    //     lalalas.forEach(lalala => {
+    //        console.log(lalala.val().name);
+    //     })
+        
+    // }
+    // );
+    return this.items
+      // this.items.send({ message: desc});
+      // this.msgVal = '';
+  }
+
   //// Email/Password Auth ////
 
   emailSignUp(email: string, password: string, name: string) {
@@ -88,7 +145,7 @@ export class StaffProvider {
         this.authState = user
         this.displayName = name
         this.updateUserData()
-        console.log("->"+this.displayName)
+        // console.log("->"+this.displayName)
       })
       .catch(error => console.log(error));
   }
@@ -101,8 +158,8 @@ export class StaffProvider {
           this.adaRef = firebase.database().ref(path);
           this.adaRef.once('value').then((snapshot)=> {
             this.displayName=snapshot.val().name
-            console.log(",", snapshot.val())
-            console.log("->>>"+this.displayName)
+            // console.log(",", snapshot.val())
+            // console.log("->>>"+this.displayName)
         }) ;
         // this.updateUserData()
         // this.adaRef = this.adaRef.push();
@@ -188,24 +245,7 @@ export class StaffProvider {
 
   }
 
-getAllUser(): any {
-  const path=`users`;
-  this.db.database.ref(path).once("value")
-  .then(function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-      // key will be "ada" the first time and "alan" the second time
-      var key = childSnapshot.key;
-      // childData will be the actual contents of the child
-      var childData = childSnapshot.val();
-      this.items.push(childSnapshot.val())
-  }
 
-  );
-  return this.items
- })
-  .catch((error) => console.log(error))
-
-}
 
 // getAllUser():Observable<any> {
 //       return new Observable(observer => {
