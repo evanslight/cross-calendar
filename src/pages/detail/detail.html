@@ -24,12 +24,12 @@
     <ion-list >
 <!--       <ion-item *ngFor="let item of items"> -->
       <ion-item-sliding *ngFor="let item of items ">
-        <ion-item >
+        <ion-item (click)="presentModal(item)" >
 <!--           <ion-label stacked>as</ion-label>
           <ion-label stacked>City</ion-label> -->
 <!--           <button ion-button (click)="presentModal()">{{ item }}</button> -->
-          <ion-label stacked (click)="presentModal()" float-start> {{ item.name }}</ion-label>
-<!--           <ion-label stacked (click)="presentModal()" float-end > {{ item.email }}</ion-label> -->
+          <ion-label float float-start> {{ item.name }}</ion-label>
+          <ion-label float text-right > {{ item.email }}</ion-label>
            
         </ion-item>
         <ion-item-options side="left">
@@ -44,7 +44,7 @@
     </ion-list>
   </form>
 
-  <ion-list id="detail-list5">
+ <!--  <ion-list id="detail-list5">
     <ion-item color="none" id="detail-list-item14">
       Item 1
     </ion-item>
@@ -57,10 +57,10 @@
   </ion-list>
 
 
-          <button ion-button color="danger" (click)="onLoad()">test observable</button>
+          <button ion-button color="danger" (click)="onLoad()">test observable</button> -->
 
-  <ion-refresher (ionRefresh)="doRefresh($event)">
+ <!--  <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
+ -->
 </ion-content>

@@ -7,12 +7,50 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      pop
+      {{ item.name }}
     </ion-title>
+    <button ion-button (click)="goToBack()" text-left >Back</button>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-<button ion-button (click)="goToBack()" round full >Back</button>
+
+	<form>
+    	<ion-list >
+
+  <ion-item-group *ngFor="let task of taskList ">
+    <ion-item-divider color="light">Title: {{ task.title }}</ion-item-divider>
+    <ion-item>Location:  {{ task.location }}</ion-item>
+    <ion-item>fromDate: {{ task.fromDate }}</ion-item>
+    <ion-item>toDate: {{ task.toDate }}</ion-item>
+    <ion-item>startTime: {{ task.startTime }}</ion-item>
+    <ion-item>endTime: {{ task.endTime }}</ion-item>
+  </ion-item-group> 
+  </ion-list>
+<!--	       <ion-item *ngFor="let item of items"> -->
+<!--     	  <ion-item-sliding *ngFor="let task of taskList ">
+    	    <ion-item  >
+    	      <ion-label float float-start>Title: {{ task.title }}</ion-label>
+    	      <ion-label float float-start>Location:  {{ task.location }}</ion-label>
+    	      <ion-label float float-start>fromDate: {{ task.fromDate }}</ion-label>
+    	      <ion-label float float-start>toDate: {{ task.toDate }}</ion-label>
+    	      <ion-label float float-start>startTime: {{ task.startTime }}</ion-label>
+    	      <ion-label float float-start>endTime: {{ task.endTime }}</ion-label>
+
+    	    </ion-item>
+    	    <ion-item-options side="left">
+    	      <button ion-button (click)="favorite(item)">Favorite</button>
+    	      <button ion-button color="danger" (click)="share(item)">Share</button>
+    	    </ion-item-options>
+    	
+    	    <ion-item-options side="right">
+    	      <button ion-button (click)="unread(item)">Unread</button>
+    	    </ion-item-options>
+    	  </ion-item-sliding>
+    	</ion-list> -->
+  	</form>
+
+
+
 </ion-content>

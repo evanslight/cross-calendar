@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
-import { LoginPage } from '../login/login';
+import { NavController, LoadingController,ModalController } from 'ionic-angular';
 import { PopPage } from '../pop/pop';
-import { ModalController } from 'ionic-angular';
 import { StaffProvider } from '../../providers/staff/staff';
 
 @Component({
@@ -12,8 +10,8 @@ import { StaffProvider } from '../../providers/staff/staff';
 export class DetailPage {
 	myInput: any;
 	searchQuery: string = '';
-  	items: string[];
-  	originalItems: string[];
+  	items: any[];
+  	originalItems: any[];
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController,  private sp: StaffProvider, public loadingCtrl: LoadingController) {
   	 this.initializeItems();
@@ -21,15 +19,8 @@ export class DetailPage {
   	 console.log("start!!"+this.items);
   }
 
-  onInput (){
-
-  }
-  onCancel(){
-
-  }
-
-  presentModal() {
-    let modal = this.modalCtrl.create(PopPage);
+  presentModal(item) {
+    let modal = this.modalCtrl.create(PopPage, { item: item });
     modal.present();
   }
 
@@ -79,13 +70,14 @@ export class DetailPage {
   	this.sp.Send().subscribe( usernames => {
         console.log("lalala");
         console.log(usernames);
+
         var temp = []
-        var tempmail = []
         usernames.forEach(lalala => {
            console.log(lalala.val());
            temp.push(lalala.val())
+
         })
-        console.log("the temp is "+temp);
+        // console.log("the temp is "+temp);
         this.items = temp;
         this.originalItems=this.items;
 	});
@@ -126,15 +118,31 @@ export class DetailPage {
     // this.initializeItems();
 	// this.items = this.sp.namelist;
     this.items=this.originalItems;
-  	console.log("the item in getItem is->"+this.items);
+  	// console.log("the item in getItem is->"+this.items);
     // set val to the value of the searchbar
     let val = ev.target.value;
+    var temp = []
+       
 
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
-      this.items = this.items.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+      // this.items = this.items.filter((item) => {
+      //   return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      // })
+
+    	this.items.forEach((item) => {
+    	  // key will be "ada" the first time and "alan" the second time
+    	  if (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1 ){
+    	  	temp.push(item);
+    	  	console.log("temp in getItems is: "+temp);
+    	  }
+	
+    	  // childData will be the actual contents of the child
+    	  // var childData = childSnapshot.val();
+    	  // this.items.push(childSnapshot.val())
+  		});
+  		this.items=temp;
+
     }
   }
 

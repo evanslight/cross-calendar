@@ -14,8 +14,30 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'pop.html',
 })
 export class PopPage {
+	item: any;
+	taskList: any[] = [];
+	today = new Date();
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+  	console.log('UserId', navParams.get('item'));
+  	this.item=navParams.get('item');
+	this.getTasks()
+  	// console.log(this.taskList);
+   //  this.item.tasks.forEach(task => {
+   //       console.log(task.val());
+   //       this.taskList.push(task.val());
+   //    });
+  	// console.log('task list is -> ', this.taskList);
+  }
+
+  getTasks() {
+  	for (let task in this.item.tasks) {
+  		var tempDate = new Date(this.item.tasks[task].toDate);
+  		if (this.today <= tempDate) {
+  			this.taskList.push(this.item.tasks[task]);
+  		}
+  		
+  	}
   }
 
   goToBack() {
